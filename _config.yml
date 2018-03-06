@@ -18,7 +18,7 @@ title: Welcome to My Website!
 email:
 description: test
 baseurl: # the optional subpath of your site, e.g. "/blog"
-url: http://mirahmani.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+url: https://mirahmani.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 author:
   name: Miranti Rahmani
   twitter:
