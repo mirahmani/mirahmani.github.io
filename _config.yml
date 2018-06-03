@@ -83,6 +83,7 @@ defaults:
     values:
       layout: post
       read_time: true
+    entries_layout: grid
   # _recipea
   - scope:
       path: "_recipes"
