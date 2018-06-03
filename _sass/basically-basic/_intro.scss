@@ -19,7 +19,9 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: rgba($accent-color, 0.25);
+    @if $intro-image-color-overlay == true {
+      background-color: rgba($accent-color, 0.25);
+    };
     content: '';
   }
 
@@ -37,7 +39,7 @@
 }
 
 .intro-title {
-  @include fluid-type($min-vw, $max-vw, 26px, 42px); /*initially 80px*/
+  @include fluid-type($min-vw, $max-vw, 26px, 80px);
   margin-bottom: 1rem;
   color: tint($text-color, 25%);
   line-height: 1;

@@ -6,7 +6,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 60%; /*initially 100#*/
+  width: 100%;
   max-width: $sidebar-width;
   height: 100%;
   z-index: 50;
@@ -82,7 +82,7 @@
   }
 
   .menu {
-    @include fluid-type($min-vw, $max-vw, 24px, 36px); /*max initially 48px*/
+    @include fluid-type($min-vw, $max-vw, 24px, 48px);
     position: relative;
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
