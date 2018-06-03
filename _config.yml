@@ -79,7 +79,7 @@ exclude:
 defaults:
   # _posts
   - scope:
-      path: "_posts"
+      path: "/docs/_posts"
       type: posts
     values:
       layout: post
