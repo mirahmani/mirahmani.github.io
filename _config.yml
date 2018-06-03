@@ -16,7 +16,7 @@
 lang: en-US
 title: Test
 email:
-description:
+description: "test"
 baseurl: # the optional subpath of your site, e.g. "/blog"
 url: "https://mirahmani.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 author:
@@ -43,7 +43,6 @@ plugins: # previsously gems
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-paginate
-  - jekyll-remote-theme
 feed:
   path: atom.xml
 
