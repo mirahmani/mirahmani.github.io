@@ -77,16 +77,9 @@ exclude:
 
 # Front Matter Defaults
 defaults:
-  # _posts
+  # _recipea
   - scope:
-      path: "_posts"
-      type: posts
-    values:
-      layout: post
-      read_time: true
-  # _recipe
-  - scope:
-      path: "_recipe"
+      path: "_recipes"
       type: posts
     values:
       layout: post
