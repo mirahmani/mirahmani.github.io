@@ -1,5 +1,5 @@
 # Configurations
-title:            Jekyll Gitbook
+title:            Mira Test
 longtitle:        Jekyll Gitbook
 author:           HE Tao
 email:            sighingnow@gmail.com
@@ -14,9 +14,7 @@ url:              'https://mirahmani.github.io'
 rss:              RSS
 
 # bootstrap: use the remote theme for the site itself
-#remote_theme: sighingnow/jekyll-gitbook
-remote_theme: mirahmani/testing
-
+remote_theme: sighingnow/jekyll-gitbook
 toc:
   enabled: true
   h_min: 1
