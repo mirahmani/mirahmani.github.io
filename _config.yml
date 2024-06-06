@@ -61,6 +61,8 @@ incremental:      false
 regenerate:       true
 
 plugins:
+  - jekyll
   - jekyll-feed
   - jekyll-readme-index
   - jemoji
+  - webrick
