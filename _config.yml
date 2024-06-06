@@ -14,7 +14,8 @@ url:              'https://mirahmani.github.io'
 rss:              RSS
 
 # bootstrap: use the remote theme for the site itself
-remote_theme: sighingnow/jekyll-gitbook
+#remote_theme: sighingnow/jekyll-gitbook
+remote_theme: mirahmani/testing
 
 toc:
   enabled: true
