@@ -1,9 +1,30 @@
----
-layout: home
-title: Hi! I'm Mira
-permalink: /
----
+# mirahmani.github.io
 
-Currently I work as Business Intelligence Engineer which builds end-to-end data solution so everyone in the company and our company's partner can access the required data in timely manner. I am interested in figuring ways to automate the boring stuffs and optimize the workflow so I (and everyone else who benefits from my work) can have time for more important works!
+Personal site — **static HTML** (no Jekyll, no `bundle`).
 
-In my free time, I like to read, cook, making arts, and doing some data (or non-data)-related side projects. I also created [youtube channel](https://youtube.com/c/MirasBlackbox) (in Indonesian language) to share what I learned in the data field.
+## Preview lokal
+
+Dari folder project:
+
+```bash
+python3 -m http.server 4000
+```
+
+Lalu buka [http://127.0.0.1:4000](http://127.0.0.1:4000).
+
+Alternatif: `npx serve .` kalau ada Node.
+
+## Edit konten
+
+| File | Isi |
+|------|-----|
+| `content/site.js` | Bio, headline, projects, social, contact |
+| `assets/css/main.css` | Desain / warna / tipografi |
+
+Font: **Inter** (Bunny Fonts). Fallback: system UI sans-serif.
+
+## Deploy (GitHub Pages)
+
+Push file HTML/CSS/JS ke branch utama. Di repo Settings → Pages, pilih **Deploy from a branch** → root `/` (bukan Jekyll build).
+
+Folder `backup/` berisi theme lama (GitBook / Jekyll) — boleh diabaikan.
