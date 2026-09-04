@@ -13,6 +13,7 @@ window.SITE = {
 
   ctaPrimary: { label: "View projects", href: "projects.html" },
   ctaSecondary: { label: "Contact", href: "contact.html" },
+  ctaGithub: { label: "GitHub", href: "https://github.com/mirahmani" },
 
   aboutTitle: "About",
   about: [
@@ -48,6 +49,7 @@ window.SITE = {
   social: [
     { label: "LinkedIn", href: "https://id.linkedin.com/in/mirantirahmani" },
     { label: "YouTube", href: "https://youtube.com/c/MirasBlackbox" },
+    { label: "GitHub", href: "https://github.com/mirahmani" },
   ],
 
   projectsIntro:

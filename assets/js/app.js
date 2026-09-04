@@ -76,6 +76,7 @@
       actions.innerHTML = `
         <a class="btn btn--solid" href="${site.ctaPrimary.href}">${escapeHtml(site.ctaPrimary.label)}</a>
         <a class="btn btn--line" href="${site.ctaSecondary.href}">${escapeHtml(site.ctaSecondary.label)}</a>
+        <a class="btn btn--line" href="${site.ctaGithub.href}" target="_blank" rel="noopener noreferrer">${escapeHtml(site.ctaGithub.label)}</a>
       `;
     }
 
