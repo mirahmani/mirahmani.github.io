@@ -7,7 +7,7 @@ window.SITE = {
   shortName: "Mira",
   role: "Business Intelligence Engineer",
 
-  headline: "Data platforms that clear the noise so teams can move.",
+  headline: "Clears the noise so teams can move.",
   lede:
     "I design warehouses, pipelines, and analytics that make the right data show up on time, for the company and partners.",
 
@@ -66,14 +66,14 @@ window.SITE = {
     {
       title: "Data Quality & Reporting Reliability",
       summary:
-        "Defined data quality standards and supervised cleansing and validation so reports stopped telling conflicting stories. By tightening definitions and checks upstream, accuracy improved substantially and cross-department discrepancies dropped—giving stakeholders a single, more trustworthy view of the business.",
+        "Defined data quality standards and supervised cleansing and validation so reports stopped telling conflicting stories. By tightening definitions and checks upstream, accuracy improved substantially and cross-department discrepancies dropped, giving stakeholders a single, more trustworthy view of the business.",
       skills: ["Data quality", "SQL", "Governance", "Validation"],
       featured: true,
     },
     {
       title: "Product & Executive Metrics",
       summary:
-        "Translated product and business goals into measurable KPIs, then shipped dashboards for product teams and leadership. The work connected day-to-day product signals with company-level performance so decisions could move from anecdote to evidence—without drowning people in unused charts.",
+        "Translated product and business goals into measurable KPIs, then shipped dashboards for product teams and leadership. The work connected day-to-day product signals with company-level performance so decisions could move from anecdote to evidence, without drowning people in unused charts.",
       skills: ["Analysis", "Looker Studio", "KPI design"],
       featured: true,
     },
