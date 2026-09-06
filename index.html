@@ -3,78 +3,94 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Miranti Rahmani — Business Intelligence Engineer</title>
+    <title>Miranti Rahmani — Head of Business Intelligence</title>
     <meta
       name="description"
-      content="Business Intelligence Engineer building data platforms, analytics, and automation."
+      content="Head of Business Intelligence building data platforms, near-realtime ops analytics, and client-facing insights."
     />
     <link rel="stylesheet" href="assets/css/main.css" />
   </head>
-  <body data-page="home">
+  <body data-page="home" class="theme-resume">
     <a class="skip-link" href="#main">Skip to content</a>
-    <div class="shell">
-      <header class="site-header">
-        <div class="wrap site-header__inner">
-          <a class="logo" href="index.html" data-logo>Mira<span>.</span></a>
-          <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">
-            <span></span><span></span>
-          </button>
-          <ul class="nav" data-nav></ul>
+
+    <header class="resume-top">
+      <div class="resume-top__inner">
+        <a class="resume-top__name" href="index.html" data-logo aria-label="Miranti Rahmani">Mira<span class="resume-top__dot" aria-hidden="true">.</span></a>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          aria-label="Open menu"
+        >
+          <span></span><span></span>
+        </button>
+        <nav id="site-nav" class="resume-top__nav" aria-label="Primary">
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#skills">Skills</a>
+          <a href="#education">Education</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="resume-hero" id="about">
+        <h1 class="resume-hero__name" data-brand>Miranti Rahmani</h1>
+        <div class="resume-radar" aria-hidden="true">
+          <svg viewBox="0 0 200 200" role="img">
+            <g class="resume-radar__grid"></g>
+            <polygon class="resume-radar__area"></polygon>
+            <g class="resume-radar__dots"></g>
+            <g class="resume-radar__axis-labels"></g>
+            <text class="resume-radar__initials" x="100" y="106" text-anchor="middle" data-initials>MR</text>
+          </svg>
+          <ul class="resume-radar__labels" data-radar-labels></ul>
         </div>
-      </header>
+        <p class="resume-hero__role" data-role-hero></p>
+        <p class="resume-hero__headline" data-headline></p>
+        <div class="resume-hero__about prose" data-summary></div>
+      </section>
 
-      <main id="main">
-        <section class="hero">
-          <div class="wrap hero__layout">
-            <div class="reveal">
-              <p class="hero__eyebrow" data-role>Business Intelligence Engineer</p>
-              <h1 class="brand" data-brand>Miranti<br /><em>Rahmani</em></h1>
-              <p class="hero__headline" data-headline></p>
-              <p class="hero__lede" data-lede></p>
-              <div class="actions" data-actions></div>
-            </div>
-          </div>
-        </section>
+      <section class="resume-stats" aria-label="Highlights">
+        <ul class="resume-metrics" data-highlights></ul>
+      </section>
 
-        <section class="section section--split" id="about">
-          <div class="wrap reveal">
-            <p class="kicker">Profile</p>
-            <h2 class="section__title" data-about-title>About</h2>
-            <div class="prose" style="margin-top: 1.25rem" data-about></div>
-          </div>
-        </section>
+      <section class="resume-section" id="experience">
+        <h2 class="resume-section__title">Experience</h2>
+        <ol class="resume-timeline" data-experience></ol>
+      </section>
 
-        <section class="section" id="focus">
-          <div class="wrap">
-            <div class="reveal">
-              <p class="kicker">Practice</p>
-              <h2 class="section__title" data-focus-title>How I work</h2>
-            </div>
-            <ul class="focus-grid reveal reveal-d1" data-focus style="margin-top: 1.75rem"></ul>
-          </div>
-        </section>
-
-        <section class="section section--split" id="work">
-          <div class="wrap">
-            <div class="section__head reveal">
-              <div>
-                <p class="kicker">Selected</p>
-                <h2 class="section__title">Recent work</h2>
-              </div>
-              <a class="link-quiet" href="projects.html">All projects</a>
-            </div>
-            <ul class="project-index reveal reveal-d1" data-featured></ul>
-          </div>
-        </section>
-      </main>
-
-      <footer class="site-footer">
-        <div class="wrap site-footer__inner">
-          <p class="site-footer__brand" data-footer-brand>Miranti Rahmani</p>
-          <ul class="social" data-social></ul>
+      <section class="resume-section" id="projects">
+        <div class="resume-section__head">
+          <h2 class="resume-section__title">Selected projects</h2>
+          <a class="resume-link" href="projects.html">Full case studies →</a>
         </div>
-      </footer>
-    </div>
+        <ul class="resume-projects" data-featured></ul>
+      </section>
+
+      <section class="resume-section" id="skills">
+        <h2 class="resume-section__title">Skills</h2>
+        <div class="resume-skills" data-skills></div>
+      </section>
+
+      <section class="resume-section" id="education">
+        <h2 class="resume-section__title">Education</h2>
+        <ol class="resume-timeline resume-timeline--edu" data-education></ol>
+      </section>
+
+      <section class="resume-section resume-section--contact" id="contact">
+        <h2 class="resume-section__title">Contact</h2>
+        <p class="resume-contact__lede" data-contact-lede></p>
+        <div class="resume-contact__links" data-contact-links></div>
+      </section>
+    </main>
+
+    <footer class="resume-footer">
+      <p data-footer-brand></p>
+    </footer>
 
     <script src="content/site.js"></script>
     <script src="assets/js/app.js"></script>

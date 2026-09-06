@@ -7,40 +7,45 @@
     <meta name="description" content="Get in touch with Miranti Rahmani." />
     <link rel="stylesheet" href="assets/css/main.css" />
   </head>
-  <body data-page="contact">
+  <body data-page="contact" class="theme-resume">
     <a class="skip-link" href="#main">Skip to content</a>
-    <div class="shell">
-      <header class="site-header">
-        <div class="wrap site-header__inner">
-          <a class="logo" href="index.html" data-logo>Mira<span>.</span></a>
-          <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">
-            <span></span><span></span>
-          </button>
-          <ul class="nav" data-nav></ul>
-        </div>
+    <header class="resume-top">
+      <div class="resume-top__inner">
+        <a class="resume-top__name" href="index.html" data-logo aria-label="Miranti Rahmani">Mira<span class="resume-top__dot" aria-hidden="true">.</span></a>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          aria-label="Open menu"
+        >
+          <span></span><span></span>
+        </button>
+        <nav id="site-nav" class="resume-top__nav" aria-label="Primary">
+          <a href="index.html#about">About</a>
+          <a href="index.html#experience">Experience</a>
+          <a href="projects.html">Projects</a>
+          <a href="index.html#skills">Skills</a>
+          <a href="index.html#education">Education</a>
+          <a href="index.html#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="page-shell">
+      <header class="page-hero">
+        <h1 data-contact-title>Contact</h1>
+        <p data-contact-lede></p>
       </header>
+      <div class="contact-panel">
+        <p data-contact-body></p>
+        <div class="contact-links" data-contact-links></div>
+      </div>
+    </main>
 
-      <main id="main">
-        <header class="page-hero wrap reveal">
-          <p class="kicker">Hello</p>
-          <h1 data-contact-title>Contact</h1>
-          <p data-contact-lede></p>
-        </header>
-        <div class="wrap">
-          <div class="contact-panel reveal reveal-d1">
-            <p data-contact-body></p>
-            <div class="contact-links" data-contact-links></div>
-          </div>
-        </div>
-      </main>
-
-      <footer class="site-footer">
-        <div class="wrap site-footer__inner">
-          <p class="site-footer__brand" data-footer-brand>Miranti Rahmani</p>
-          <ul class="social" data-social></ul>
-        </div>
-      </footer>
-    </div>
+    <footer class="resume-footer">
+      <p data-footer-brand></p>
+    </footer>
 
     <script src="content/site.js"></script>
     <script src="assets/js/app.js"></script>

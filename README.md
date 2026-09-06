@@ -1,30 +1,21 @@
 # mirahmani.github.io
 
-Personal site — **static HTML** (no Jekyll, no `bundle`).
+Personal site — static HTML. Content lives in `content/site.js` (from the Obsidian portfolio brief).
 
-## Preview lokal
-
-Dari folder project:
+## Local preview
 
 ```bash
 python3 -m http.server 4000
 ```
 
-Lalu buka [http://127.0.0.1:4000](http://127.0.0.1:4000).
+Open http://127.0.0.1:4000
 
-Alternatif: `npx serve .` kalau ada Node.
+## Structure
 
-## Edit konten
+| Page | Content |
+|------|---------|
+| `index.html` | Hero, highlights, overview, project teasers, experience, skills, education |
+| `projects.html` | Three case studies with takeaways |
+| `contact.html` | Contact links |
 
-| File | Isi |
-|------|-----|
-| `content/site.js` | Bio, headline, projects, social, contact |
-| `assets/css/main.css` | Desain / warna / tipografi |
-
-Font: **Inter** (Bunny Fonts). Fallback: system UI sans-serif.
-
-## Deploy (GitHub Pages)
-
-Push file HTML/CSS/JS ke branch utama. Di repo Settings → Pages, pilih **Deploy from a branch** → root `/` (bukan Jekyll build).
-
-Folder `backup/` berisi theme lama (GitBook / Jekyll) — boleh diabaikan.
+Edit copy in `content/site.js`, then refresh.

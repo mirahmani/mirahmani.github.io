@@ -3,7 +3,6 @@
   if (!site) return;
 
   const page = document.body.dataset.page || "home";
-
   const qs = (sel, root = document) => root.querySelector(sel);
   const qsa = (sel, root = document) => [...root.querySelectorAll(sel)];
 
@@ -14,27 +13,119 @@
       .replaceAll(">", "&gt;")
       .replaceAll('"', "&quot;");
 
-  // Header / footer chrome
-  const nav = qs("[data-nav]");
-  if (nav) {
-    nav.innerHTML = site.nav
-      .map((item) => {
-        const current =
-          (page === "home" && item.href.includes("index")) ||
-          (page === "projects" && item.href.includes("projects")) ||
-          (page === "contact" && item.href.includes("contact"));
-        return `<li><a href="${item.href}" ${current ? 'aria-current="page"' : ""}>${escapeHtml(item.label)}</a></li>`;
+  const pad = (n) => String(n).padStart(2, "0");
+
+  const initials = site.brand
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase();
+
+  qsa("[data-role]").forEach((el) => {
+    el.textContent = site.role;
+  });
+  qs("[data-role-hero]") && (qs("[data-role-hero]").textContent = site.role);
+
+  const shortName = site.shortName || site.brand.split(" ")[0] || site.brand;
+  qsa("[data-logo]").forEach((logo) => {
+    if (logo.tagName !== "A") return;
+    logo.innerHTML = `${escapeHtml(shortName)}<span class="resume-top__dot" aria-hidden="true">.</span>`;
+    logo.setAttribute("aria-label", site.brand);
+  });
+
+  const brand = qs("[data-brand]");
+  if (brand) brand.textContent = site.brand;
+
+  qs("[data-initials]") && (qs("[data-initials]").textContent = initials);
+  qs("[data-headline]") && (qs("[data-headline]").textContent = site.headline);
+
+  const renderRadar = () => {
+    const wrap = qs(".resume-radar");
+    if (!wrap || !site.radar) return;
+
+    const axes = site.radar.axes || [];
+    const values = site.radar.values || [];
+    const n = axes.length;
+    if (n < 3) return;
+
+    const cx = 100;
+    const cy = 100;
+    const maxR = 72;
+    const levels = 4;
+
+    const pointAt = (i, ratio) => {
+      const angle = -Math.PI / 2 + (i * 2 * Math.PI) / n;
+      return {
+        x: cx + Math.cos(angle) * maxR * ratio,
+        y: cy + Math.sin(angle) * maxR * ratio,
+      };
+    };
+
+    const grid = qs(".resume-radar__grid");
+    const area = qs(".resume-radar__area");
+    const dots = qs(".resume-radar__dots");
+    const labels = qs(".resume-radar__axis-labels");
+    if (!grid || !area || !dots || !labels) return;
+
+    let gridHtml = "";
+    for (let level = levels; level >= 1; level -= 1) {
+      const ratio = level / levels;
+      const pts = Array.from({ length: n }, (_, i) => {
+        const p = pointAt(i, ratio);
+        return `${p.x.toFixed(2)},${p.y.toFixed(2)}`;
+      }).join(" ");
+      gridHtml += `<polygon points="${pts}"></polygon>`;
+    }
+    for (let i = 0; i < n; i += 1) {
+      const p = pointAt(i, 1);
+      gridHtml += `<line x1="${cx}" y1="${cy}" x2="${p.x.toFixed(2)}" y2="${p.y.toFixed(2)}"></line>`;
+    }
+    grid.innerHTML = gridHtml;
+
+    const valuePts = values.slice(0, n).map((v, i) => {
+      const p = pointAt(i, Math.max(0.15, Math.min(1, v)));
+      return p;
+    });
+    area.setAttribute(
+      "points",
+      valuePts.map((p) => `${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(" ")
+    );
+    dots.innerHTML = valuePts
+      .map((p) => `<circle cx="${p.x.toFixed(2)}" cy="${p.y.toFixed(2)}" r="2.4"></circle>`)
+      .join("");
+
+    labels.innerHTML = axes
+      .map((name, i) => {
+        const p = pointAt(i, 1.18);
+        return `<text x="${p.x.toFixed(2)}" y="${p.y.toFixed(2)}" text-anchor="middle" dominant-baseline="middle">${escapeHtml(name)}</text>`;
       })
       .join("");
-  }
+  };
 
-  const logo = qs("[data-logo]");
-  if (logo) {
-    logo.innerHTML = `${escapeHtml(site.shortName)}<span>.</span>`;
-  }
+  renderRadar();
 
   const footerBrand = qs("[data-footer-brand]");
   if (footerBrand) footerBrand.textContent = site.brand;
+
+  const toggle = qs(".nav-toggle");
+  const nav = qs("#site-nav");
+  if (toggle && nav) {
+    const setOpen = (open) => {
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      nav.classList.toggle("is-open", open);
+    };
+
+    toggle.addEventListener("click", () => {
+      setOpen(toggle.getAttribute("aria-expanded") !== "true");
+    });
+
+    nav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => setOpen(false));
+    });
+  }
 
   const social = qs("[data-social]");
   if (social) {
@@ -46,80 +137,101 @@
       .join("");
   }
 
-  // Mobile nav
-  const toggle = qs(".nav-toggle");
-  const navList = qs(".nav");
-  if (toggle && navList) {
-    toggle.addEventListener("click", () => {
-      const open = toggle.getAttribute("aria-expanded") === "true";
-      toggle.setAttribute("aria-expanded", String(!open));
-      navList.classList.toggle("is-open", !open);
-    });
-  }
-
-  const pad = (n) => String(n).padStart(2, "0");
-
   if (page === "home") {
-    const brand = qs("[data-brand]");
-    if (brand) {
-      const parts = site.brand.split(" ");
-      const last = parts.pop();
-      brand.innerHTML = `${escapeHtml(parts.join(" "))}<br /><em>${escapeHtml(last)}</em>`;
+    const summary = qs("[data-summary]");
+    if (summary) {
+      summary.innerHTML = site.summary.map((p) => `<p>${escapeHtml(p)}</p>`).join("");
     }
 
-    qs("[data-role]") && (qs("[data-role]").textContent = site.role);
-    qs("[data-headline]") && (qs("[data-headline]").textContent = site.headline);
-    qs("[data-lede]") && (qs("[data-lede]").textContent = site.lede);
-
-    const actions = qs("[data-actions]");
-    if (actions) {
-      actions.innerHTML = `
-        <a class="btn btn--solid" href="${site.ctaPrimary.href}">${escapeHtml(site.ctaPrimary.label)}</a>
-        <a class="btn btn--line" href="${site.ctaSecondary.href}">${escapeHtml(site.ctaSecondary.label)}</a>
-        <a class="btn btn--line" href="${site.ctaGithub.href}" target="_blank" rel="noopener noreferrer">${escapeHtml(site.ctaGithub.label)}</a>
-      `;
-    }
-
-    qs("[data-about-title]") && (qs("[data-about-title]").textContent = site.aboutTitle);
-    const about = qs("[data-about]");
-    if (about) {
-      about.innerHTML = site.about.map((p) => `<p>${escapeHtml(p)}</p>`).join("");
-    }
-
-    qs("[data-focus-title]") && (qs("[data-focus-title]").textContent = site.focusTitle);
-    const focus = qs("[data-focus]");
-    if (focus) {
-      focus.innerHTML = site.focus
+    const highlights = qs("[data-highlights]");
+    if (highlights) {
+      highlights.innerHTML = site.highlights
         .map(
-          (f) => `
-        <li class="focus-card">
-          <div class="focus-card__num">${escapeHtml(f.num)}</div>
-          <h3>${escapeHtml(f.title)}</h3>
-          <p>${escapeHtml(f.text)}</p>
+          (h) => `
+        <li>
+          <strong>${escapeHtml(h.value)}</strong>
+          <span>${escapeHtml(h.label)}</span>
         </li>`
         )
         .join("");
     }
 
-    const featured = site.projects.filter((p) => p.featured).slice(0, 3);
-    const list = qs("[data-featured]");
-    if (list) {
-      list.innerHTML = featured
+    const experience = qs("[data-experience]");
+    if (experience) {
+      experience.innerHTML = site.experience
+        .map(
+          (job) => `
+        <li class="resume-timeline__item">
+          <div class="resume-timeline__left">
+            <p class="resume-timeline__period">${escapeHtml(job.period)}</p>
+            <h3 class="resume-timeline__role">${escapeHtml(job.role)}</h3>
+            <p class="resume-timeline__company">${escapeHtml(job.company)}</p>
+          </div>
+          <div class="resume-timeline__right">
+            <p class="resume-timeline__detail">${escapeHtml(job.summary)}</p>
+          </div>
+        </li>`
+        )
+        .join("");
+    }
+
+    const featured = qs("[data-featured]");
+    if (featured) {
+      featured.innerHTML = site.projects
+        .filter((p) => p.featured)
         .map(
           (p, i) => `
         <li>
-          <a class="project-row" href="projects.html">
-            <div class="project-row__num">${pad(i + 1)}</div>
+          <a href="projects.html#${escapeHtml(p.id)}">
+            <span class="resume-projects__num">${pad(i + 1)}</span>
             <div>
               <h3>${escapeHtml(p.title)}</h3>
-              <p>${escapeHtml(p.summary)}</p>
+              <p>${escapeHtml(p.dek || p.summary)}</p>
             </div>
-            <div class="skills">${p.skills
-              .slice(0, 4)
-              .map((s) => `<span>${escapeHtml(s)}</span>`)
-              .join("")}</div>
           </a>
         </li>`
+        )
+        .join("");
+    }
+
+    const skills = qs("[data-skills]");
+    if (skills) {
+      skills.innerHTML = site.skills
+        .map(
+          (group) => `
+        <div>
+          <h3>${escapeHtml(group.group)}</h3>
+          <p>${escapeHtml(group.items.join(" · "))}</p>
+        </div>`
+        )
+        .join("");
+    }
+
+    const education = qs("[data-education]");
+    if (education) {
+      education.innerHTML = site.education
+        .map(
+          (ed) => `
+        <li class="resume-timeline__item">
+          <div class="resume-timeline__left">
+            <p class="resume-timeline__period">${escapeHtml(ed.degree)}</p>
+            <h3 class="resume-timeline__role">${escapeHtml(ed.school)}</h3>
+          </div>
+          <div class="resume-timeline__right">
+            ${ed.detail ? `<p class="resume-timeline__detail">${escapeHtml(ed.detail)}</p>` : "<p class=\"resume-timeline__detail\">—</p>"}
+          </div>
+        </li>`
+        )
+        .join("");
+    }
+
+    qs("[data-contact-lede]") && (qs("[data-contact-lede]").textContent = site.contactLede);
+    const links = qs("[data-contact-links]");
+    if (links) {
+      links.innerHTML = site.social
+        .map(
+          (s) =>
+            `<a class="btn btn--solid" href="${s.href}" target="_blank" rel="noopener noreferrer">${escapeHtml(s.label)}</a>`
         )
         .join("");
     }
@@ -129,23 +241,27 @@
     qs("[data-projects-intro]") &&
       (qs("[data-projects-intro]").textContent = site.projectsIntro);
 
-    const list = qs("[data-projects]");
-    if (list) {
-      list.innerHTML = site.projects
+    const cases = qs("[data-cases]");
+    if (cases) {
+      cases.innerHTML = site.projects
         .map(
           (p, i) => `
-        <li>
-          <div class="project-row">
-            <div class="project-row__num">${pad(i + 1)}</div>
+        <article class="case" id="${escapeHtml(p.id)}">
+          <header class="case__header">
+            <p class="case__num">${pad(i + 1)}</p>
             <div>
-              <h3>${escapeHtml(p.title)}</h3>
-              <p>${escapeHtml(p.summary)}</p>
+              <h2 class="case__title">${escapeHtml(p.title)}</h2>
+              <p class="case__dek">${escapeHtml(p.dek)}</p>
             </div>
-            <div class="skills">${p.skills
-              .map((s) => `<span>${escapeHtml(s)}</span>`)
-              .join("")}</div>
+          </header>
+          <div class="case__body">
+            ${p.body.map((para) => `<p>${escapeHtml(para)}</p>`).join("")}
           </div>
-        </li>`
+          <p class="case__takeaway"><span>Takeaway</span>${escapeHtml(p.takeaway)}</p>
+          <ul class="skill-list">
+            ${p.skills.map((s) => `<li>${escapeHtml(s)}</li>`).join("")}
+          </ul>
+        </article>`
         )
         .join("");
     }
@@ -165,25 +281,5 @@
         )
         .join("");
     }
-  }
-
-  // Reveal on scroll
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const items = qsa(".reveal");
-  if (reduce || !("IntersectionObserver" in window)) {
-    items.forEach((el) => el.classList.add("is-in"));
-  } else {
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-in");
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
-    );
-    items.forEach((el) => io.observe(el));
   }
 })();
